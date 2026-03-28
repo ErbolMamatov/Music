@@ -1,0 +1,199 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>MusicHub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Нижний плеер -->
+<div class="bottom-player" id="bottomPlayer">
+    
+  <div class="player-info">
+    <span id="trackTitle">Выберите трек</span>
+  </div>
+    <!-- кнопка избранного -->
+    <button id="likeBtn" class="like-btn">
+        <i class="fas fa-star"></i>
+    </button>
+
+    <button class="ctrl-btn" onclick="toggleRepeat(this)">↻</button>
+
+      <button class="ctrl-btn" onclick="toggleShuffle(this)">
+    <i class="fas fa-random"></i>
+  </button>
+
+  
+
+  <div class="player-controls">
+
+    <button id="playPauseBtn">
+      <i class="fas fa-play"></i>
+    </button>
+
+    <span id="currentTime">0:00</span>
+
+    <input type="range" id="progressBar" value="0" min="0" max="100">
+
+    <span id="duration">0:00</span>
+  </div>
+
+  
+
+  <div class="player-volume">
+    <i class="fas fa-volume-up"></i>
+    <input type="range" id="volumeBar" min="0" max="1" step="0.01" value="1">
+  </div>
+</div>
+
+
+<div class="music-container">
+    <header class="header">
+    <div class="container">
+        <h1 class="glovo"><a style="color: #f20606;">Music</a><a style="color: #ffe003;">Vaibe</a></h1>
+    </div>
+  </header>
+
+  <!-- Зона наведения -->
+  <div class="hover-zone"></div>
+
+  <!-- Боковое меню -->
+  <div class="sidebar" id="sidebar">
+    <a href="#" onclick="showAllTracks()"><i class="fas fa-home"></i><span class="menu-title">Главная</span></a>
+    <a href="#"><i class="fas fa-music"></i><span class="menu-title">Плейлисты</span></a>
+    <a href="#" onclick="showFavorites()"><i class="fas fa-heart"></i><span class="menu-title">Избранное</span></a>
+    <a href="#"><i class="fas fa-cog"></i><span class="menu-title">Настройки</span></a>
+    <a href="#"><i class="fas fa-user"></i><span class="menu-title">Профиль</span></a>
+  </div>
+
+
+
+
+  <!-- Гамбургер -->
+  <div class="hamburger" onclick="toggleMenu()">☰</div>
+
+  <!-- Затемнение -->
+  <div class="overlay" id="overlay" onclick="closeMenu()"></div>
+
+<div class="music-wrapper">
+ <div class="music-grid" id="musicGrid">
+    <div class="music-card" data-src="music test/фонк/Dxrkaii, Jiandro - New Jeans - Jersey Club - Slowed Down.mp3" onclick="playMusic('music test/фонк/Dxrkaii, Jiandro - New Jeans - Jersey Club - Slowed Down.mp3')">
+        <img src="img/img music/img mita Jeans Jersey Remix.jpg" alt="Cover"/>
+        <h4>Dxrkaii, Jiandro - New Jeans</h4>
+    </div>
+
+    <div class="music-card" data-src="music test/музыка/Пицца - Оружие.mp3" onclick="playMusic('music test/музыка/Пицца - Оружие.mp3')">
+        <img src="./img/img music/photo_2.jpg" alt="Cover"/>
+        <h4>PIZZA_ОРУЖИЕ</h4>
+    </div>
+
+    <div class="music-card" data-src="music test/музыка/Libianca - People.mp3" onclick="playMusic('music test/музыка/Libianca - People.mp3')">
+        <img src="./img/img music/photo_3.jpg" alt="Cover"/>
+        <h4>Libianca - People (Lyrics)</h4>
+    </div>
+
+    <div class="music-card" data-src="music test/музыка/ROSÉ - APT. (ROSÉ & Bruno Mars).mp3" onclick="playMusic('music test/музыка/ROSÉ - APT. (ROSÉ & Bruno Mars).mp3')">
+        <img src="./img/img music/photo_4apacha.jpeg" alt="Cover"/>
+        <h4>ROSÉ & Bruno Mars - APT. (Lyrics)</h4>
+    </div>
+
+    <div class="music-card" data-src="music test/музыка/Drake - One Dance (feat. Wizkid & Kyla) (Зарубежный Hip-Hop).mp3" onclick="playMusic('music test/музыка/Drake - One Dance (feat. Wizkid & Kyla) (Зарубежный Hip-Hop).mp3')">
+        <img src="./img/img music/DrakeOneDance.png" alt="Cover"/>
+        <h4>One Dance - Drake</h4>
+    </div>
+
+    <div class="music-card" data-src="music test/музыка/Nej - Paro.mp3" onclick="playMusic('music test/музыка/Nej - Paro.mp3')">
+        <img src="./img/img music/photo_6allo.jpg" alt="Cover"/>
+        <h4>Allô Allô Allô Allô (Paro) - Nej</h4>
+    </div>
+
+    <div class="music-card" data-src="music test/реп/eminem-lose-yourself-clean.mp3" onclick="playMusic('music test/реп/eminem-lose-yourself-clean.mp3')">
+        <img src="./img/img music/photo_7.jpg" alt="Cover"/>
+        <h4>lose yourself(Eminem)</h4>
+    </div>
+
+    <div class="music-card" data-src="music test/реп/Eminem - Venom (Music From the Motion Picture).mp3" onclick="playMusic('music test/реп/Eminem - Venom (Music From the Motion Picture).mp3')">
+        <img src="./img/img music/Venom(eminem).jpg" alt="Cover"/>
+        <h4>Venom(Eminem)</h4>
+    </div>
+
+    <div class="music-card" data-src="music test/фонк/KREZUS, Mc Lysa - Vai Me Bota - Ultra Slowed.mp3" onclick="playMusic('music test/фонк/KREZUS, Mc Lysa - Vai Me Bota - Ultra Slowed.mp3')">
+        <img src="./img/img music/images_9.jpeg" alt="Cover"/>
+        <h4>KREZUS, Mc Lysa - Vai Me Bota - Ultra Slowed</h4>
+    </div>
+
+    <div class="music-card" data-src="music test/фонк/wdchg8m19ylctwe8ep8r.mp3" onclick="playMusic('music test/фонк/wdchg8m19ylctwe8ep8r.mp3')">
+        <img src="./img/img music/carimgg.webp" alt="Cover"/>
+        <h4>Mirror-Slowed</h4>
+    </div>
+
+    <div class="music-card" data-src="music test/классика/1mkf98bmni5d9iu8nt40.m4a" onclick="playMusic('music test/классика/1mkf98bmni5d9iu8nt40.m4a')">
+        <img src="./img/img music/500x500.jpg" alt="Cover"/>
+        <h4>YOASOBI 『たぶん』</h4>
+    </div>
+
+    <div class="music-card" data-src="music test/музыка/hmn8dwum8sb39q2m1l37.m4a" onclick="playMusic('music test/музыка/hmn8dwum8sb39q2m1l37.m4a')">
+        <img src="./img/img music/3056fbf895f32.jpeg" alt="Cover"/>
+        <h4>from the start</h4>
+    </div>
+
+    <div class="music-card" data-src="music test/ремикс/C418 - Aria Math (Protostar Remix) Ft Protostar.mp3" onclick="playMusic('music test/ремикс/C418 - Aria Math (Protostar Remix) Ft Protostar.mp3')">
+        <img src="./img/img music/minecraft1.jpeg" alt="Cover"/>
+        <h4>Aria Math | Minecraft.   (c418)</h4>
+    </div>
+
+    <div class="music-card" data-src="music test/классика/2uv4kh1xvyqx2f0m0zl9.mp3" onclick="playMusic('music test/классика/2uv4kh1xvyqx2f0m0zl9.mp3')">
+        <img src="./img/img music/carred.jpeg" alt="Cover"/>
+        <h4>ASTXR</h4>
+    </div>
+
+    <div class="music-card" data-src="music test/фонк/ql0yubzi6avva5qwo3y1.mp3" onclick="playMusic('music test/фонк/ql0yubzi6avva5qwo3y1.mp3')">
+        <img src="./img/img music/elf girl.jpeg" alt="Cover"/>
+        <h4> Elf Girls Song</h4>
+    </div>
+
+    <div class="music-card" data-src="music test/классика/oggnc3vpdv2qlz8b07ty.mp3" onclick="playMusic('music test/классика/oggnc3vpdv2qlz8b07ty.mp3')">
+        <img src="./img/img music/artworks-nLCIsKwKUhtrsUS3-wSDzGw-t500x500.jpg" alt="Cover"/>
+        <h4>???</h4>
+    </div>
+
+    <div class="music-card" data-src="music test/музыка/Oll-ai Oll-ei.mp3" onclick="playMusic('music test/музыка/Oll-ai Oll-ei.mp3')">
+        <img src="./img/img music/feibly-bioms.png" alt="Cover"/>
+        <h4>Oll-ai Oll-ei</h4>
+    </div>
+
+    <div class="music-card" data-src="music/newjeans.mp3" onclick="playMusic('')">
+        <img src="" alt="Cover"/>
+        <h4></h4>
+    </div>
+
+    <div class="music-card" data-src="music/newjeans.mp3" onclick="playMusic('')">
+        <img src="" alt="Cover"/>
+        <h4></h4>
+    </div>
+
+    <div class="music-card" data-src="music/newjeans.mp3" onclick="playMusic('')">
+        <img src="" alt="Cover"/>
+        <h4></h4>
+    </div>
+
+
+
+</div>
+<!-- Поиск -->
+        <div class="search-panel">
+            <input type="text" id="searchInput" placeholder="Поиск трека..." />
+        </div>
+    </div>
+
+    <audio id="audio-player"></audio>
+    <!--
+    Кнопки управления плеером (внешний вид и обработчики):
+    -->
+
+    <script src="./script.js"></script>
+</body>
+</html>

@@ -1,0 +1,442 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  font-family: sans-serif;
+  background: linear-gradient(to bottom, #111, #1a1a1a);
+  color: #f0f0f0;
+  display: flex;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+/* стили для бургерменю */
+.sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      height: 100%;
+      background-color: #1e1e2f;
+      color: #f0f0f0;
+      width: 60px;
+      overflow-x: hidden;
+      transition: width 0.3s ease, background-color 0.3s ease;
+      z-index: 1000;
+      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .sidebar:hover {
+      width: 150px;
+    }
+
+    .sidebar.show {
+      width: 200px;
+    }
+
+    .sidebar a {
+      display: flex;
+      align-items: center;
+      color: #f0f0f0;
+      padding: 16px;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background 0.2s;
+    }
+
+    .sidebar a:hover {
+      background-color: #2d2d44;
+      color: #4fd1c5;
+    }
+
+    .sidebar i {
+      min-width: 20px;
+      text-align: center;
+      margin-right: 10px;
+      font-size: 18px;
+    }
+
+    .menu-title {
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .sidebar:hover .menu-title,
+    .sidebar.show .menu-title {
+      opacity: 1;
+    }
+
+    .hover-zone {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 20px;
+      height: 100%;
+      z-index: 999;
+    }
+
+    .hamburger {
+      display: none;
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      z-index: 1100;
+      cursor: pointer;
+      font-size: 30px;
+      color: #ffffff;
+    }
+
+
+
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0,0,0,0.3);
+      z-index: 999;
+    }
+
+
+/* Стили для шапки */
+.header {
+  padding: 10px 0;
+  text-align: center;
+  margin: 0;
+  overflow: hidden; /* Скрываем текст, выходящий за пределы шапки */
+}
+
+/* Контейнер для текста */
+.header .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Анимация для движения текста */
+@keyframes moveRight {
+  0% {
+      transform: translateX(-100%); /* Начинается за пределами слева */
+  }
+  100% {
+      transform: translateX(100%); /* Уходит за пределы справа */
+  }
+}
+
+/* Стили для текста .glovo */
+.glovo {
+  color: #fff;
+  font-size: 4rem;
+  margin: 0;
+  left: 0; /* Стартовая позиция */
+  top: 50%; /* Центрируем текст по вертикали */
+  transform: translateY(-50%); /* Корректировка вертикального выравнивания */
+  animation: moveRight 5s linear infinite; /* Анимация движения */
+  white-space: nowrap; /* Запрещаем перенос текста */
+}
+
+
+.music-container {
+  margin-left: 120px;
+  max-width: 1400px;
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.music-wrapper {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+}
+
+.music-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  flex: 4;
+}
+
+.search-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 10px;
+  background: #1c1c1c;
+  border-radius: 10px;
+  min-width: 200px;
+  height: fit-content;
+}
+
+#searchInput {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: none;
+  font-size: 14px;
+  background: #2d2d2d;
+  color: #fff;
+}
+
+/* repeat(auto-fill, minmax(180px, 1fr)) */
+.music-card {
+  background: #222;
+  padding: 15px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+  transition: transform 0.2s;
+}
+
+.music-card:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+  
+}
+
+.music-card:hover img {
+  transform: scale(1.05);
+
+}
+
+.music-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  transition: transform 0.3s ease;
+}
+
+.music-card h4 {
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+.music-card.active {
+  border: 2px solid #f2da06;
+  box-shadow: 0 0 15px #f20606;
+}
+
+
+audio {
+  width: 100%;
+  outline: none;
+}
+
+
+/* ===== Нижний музыкальный плеер ===== */
+.bottom-player {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #1b1b1b;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  z-index: 2000;
+  box-shadow: 0 -5px 15px rgba(0,0,0,0.6);
+}
+
+.player-info {
+  flex: 2;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.player-controls {
+  flex: 5;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.player-controls button {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.player-controls input[type="range"] {
+  flex: 1;
+}
+
+.player-volume {
+  flex: 2;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.player-volume input {
+  width: 100px;
+}
+
+input[type="range"] {
+  appearance: none;
+  height: 4px;
+  background: #444;
+  border-radius: 4px;
+  cursor: pointer;
+
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  background: #f20606;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* Плеер скрыт по умолчанию */
+.bottom-player {
+  display: none;
+}
+
+/* Плавное появление плеера */
+.bottom-player {
+  transition: opacity 0.3s ease, transform 0.9s ease, border-radius 0.3s ease, background 0.3s ease;
+  /* tiled background */
+  background-image: linear-gradient(45deg, #1b1b1b 25%, #242424 25%, #242424 50%, #1b1b1b 50%, #1b1b1b 75%, #242424 75%, #242424 100%);
+  background-size: 40px 40px;
+}
+
+
+/* Когда активен — показываем */
+.bottom-player.show {
+  display: flex;
+}
+
+
+/* Запрет выделения текста */
+body {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Если захочешь разрешить ввод в input */
+input {
+  user-select: text;
+}
+
+.like-btn {
+  background: none;
+  border: none;
+  color: #aaa;
+  font-size: 18px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.like-btn.active {
+  color: #ffcb21;
+}
+
+.like-btn:hover {
+  transform: scale(1.1);
+}
+
+/* Более "Spotify-like" */
+.bottom-player {
+  backdrop-filter: blur(10px);
+}
+
+.player-controls i {
+  font-size: 18px;
+}
+
+
+button.active {
+  color: gold;
+}
+
+.player-controls {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.ctrl-btn {
+  background: none;
+  border: none;
+  color: #ccc;
+  font-size: 18px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.ctrl-btn:hover {
+  color: #fff;
+  transform: scale(1.1);
+}
+
+.ctrl-btn.active {
+  color: gold;
+}
+
+.like-btn.active {
+  color: gold;
+}
+
+
+/* Адаптивный дизайн: уменьшение размера шрифта на маленьких экранах */
+@media screen and (max-width: 768px) {
+  .glovo {
+      font-size: 2rem;
+  }
+
+  .music-container {
+    margin-left: 0;
+    padding-top: 60px;
+  }
+  /* адаптация на бургерменю */
+  .sidebar {
+        width: 0;
+      }
+
+      .sidebar.show {
+        width: 200px;
+      }
+
+      .sidebar:hover {
+        width: 200px;
+      }
+
+      .hover-zone {
+        display: none;
+      }
+
+      .hamburger {
+        display: block;
+      }
+
+      .menu-title {
+        opacity: 1;
+      }
+
+      .overlay.show {
+        display: block;
+      }
+
+
+
+
+
+}
